@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!-- The watcher itself is not in this repository. On first start the container downloads it
+     from spoolroom.app with your own watcher token, then keeps it up to date. Printers are
+     added with `spoolroom-setup` in the container's console, so this template has no printer
+     fields: Unraid passes every field to the container, even a blank one, and a container
+     variable would override the printers the wizard saves. -->
+<Container version="2">
+  <Name>spoolroom-watcher</Name>
+  <Repository>node:24-alpine</Repository>
+  <Registry>https://hub.docker.com/_/node</Registry>
+  <Network>bridge</Network>
+  <Privileged>false</Privileged>
+  <Shell>sh</Shell>
+  <Support>https://spoolroom.app/support</Support>
+  <Project>https://spoolroom.app</Project>
+  <Overview>The Spoolroom watcher notices finished 3D prints on your network and logs them into your Spoolroom, deducting filament from the right spools. It only makes outbound connections: to your printers and to spoolroom.app. 1) Get a watcher token in Spoolroom: Settings, Connections, Connect a Watcher, and paste it below. 2) After the container starts, click its icon, choose Console, and run spoolroom-setup to find and add your printers. The watcher keeps itself up to date.</Overview>
+  <Category>Tools:Utilities HomeAutomation:</Category>
+  <WebUI/>
+  <TemplateURL>https://raw.githubusercontent.com/dncnwy/unraid-templates/main/templates/spoolroom-watcher.xml</TemplateURL>
+  <Icon>https://spoolroom.app/apple-touch-icon.png</Icon>
+  <ExtraParams>--restart=unless-stopped</ExtraParams>
+  <PostArgs>sh -c 'wget -qO /data/.start.sh.new "$SPOOLROOM_URL/api/watcher/container-start.sh" &amp;&amp; mv /data/.start.sh.new /data/start.sh; exec sh /data/start.sh'</PostArgs>
+  <Requires>A Spoolroom account and a watcher token (swt_...).</Requires>
+
+  <Config Name="State" Target="/data" Default="/mnt/user/appdata/spoolroom-watcher" Mode="rw" Description="Watcher state (watermarks, lock, remote-access sign-in). Do not change it after the first run, or prints re-import." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/spoolroom-watcher</Config>
+
+  <Config Name="State directory" Target="STATE_DIR" Default="/data" Description="Do not change." Type="Variable" Display="advanced" Required="true" Mask="false">/data</Config>
+  <Config Name="Spoolroom address" Target="SPOOLROOM_URL" Default="https://spoolroom.app" Description="Leave as https://spoolroom.app." Type="Variable" Display="advanced" Required="true" Mask="false">https://spoolroom.app</Config>
+  <Config Name="Watcher token" Target="SPOOLROOM_WATCHER_TOKEN" Default="" Description="From Spoolroom: Settings, Connections, Connect a Watcher. Starts with swt_. Treat it like a password." Type="Variable" Display="always" Required="true" Mask="true"/>
+</Container>

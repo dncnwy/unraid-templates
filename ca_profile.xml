@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<CommunityApplications>
+  <Profile>Spoolroom tracks 3D printing filament and supplies. This repository holds the Unraid template for the Spoolroom watcher, which logs finished prints from the printers on your network into your Spoolroom.</Profile>
+  <Icon>https://spoolroom.app/apple-touch-icon.png</Icon>
+  <WebPage>https://spoolroom.app</WebPage>
+</CommunityApplications>
