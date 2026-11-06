@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!-- The watcher itself is not in this repository. On first start the container pairs with
-     spoolroom.app using the pairing code you paste in (or a watcher token), downloads the
+     spoolroom.app using the setup code you paste in (or a watcher token), downloads the
      watcher, then keeps it up to date. Printers are added in Spoolroom under the watcher, so
      this template has no printer fields: Unraid passes every field to the container, even a
      blank one, and a container variable would override the printers the app or the wizard
@@ -14,19 +14,19 @@
   <Shell>sh</Shell>
   <Support>https://spoolroom.app/support</Support>
   <Project>https://spoolroom.app</Project>
-  <Overview>The Spoolroom watcher notices finished 3D prints on your network and logs them into your Spoolroom, deducting filament from the right spools. It only makes outbound connections: to your printers and to spoolroom.app. 1) In Spoolroom, open Settings, Connections, Connect a Watcher, choose Unraid and generate a pairing code; paste it below. 2) Once the watcher shows Live in Spoolroom, add your printers under it there: Find printers scans your network (type your home network, such as 192.168.1.0/24, when asked), or add one by its address. Nothing is typed in the container. The watcher keeps itself up to date.</Overview>
+  <Overview>The Spoolroom watcher notices finished 3D prints on your network and logs them into your Spoolroom, deducting filament from the right spools. It only makes outbound connections: to your printers and to spoolroom.app. 1) In Spoolroom, open Settings, Connections, Connect a Watcher, choose Unraid and generate a setup code; paste it below. 2) Once the watcher shows Live in Spoolroom, add your printers under it there: Find printers scans your network (type your home network, such as 192.168.1.0/24, when asked), or add one by its address. Nothing is typed in the container. The watcher keeps itself up to date.</Overview>
   <Category>Tools:Utilities HomeAutomation:</Category>
   <WebUI/>
   <TemplateURL>https://raw.githubusercontent.com/dncnwy/unraid-templates/main/templates/spoolroom-watcher.xml</TemplateURL>
   <Icon>https://spoolroom.app/apple-touch-icon.png</Icon>
   <ExtraParams>--restart=unless-stopped</ExtraParams>
   <PostArgs>sh -c 'wget -qO /data/.start.sh.new "$SPOOLROOM_URL/api/watcher/container-start.sh" &amp;&amp; mv /data/.start.sh.new /data/start.sh; exec sh /data/start.sh'</PostArgs>
-  <Requires>A Spoolroom account and a pairing code from Settings, Connections, Connect a Watcher.</Requires>
+  <Requires>A Spoolroom account and a setup code from Settings, Connections, Connect a Watcher.</Requires>
 
   <Config Name="State" Target="/data" Default="/mnt/user/appdata/spoolroom-watcher" Mode="rw" Description="Watcher state (watermarks, lock, remote-access sign-in). Do not change it after the first run, or prints re-import." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/spoolroom-watcher</Config>
 
   <Config Name="State directory" Target="STATE_DIR" Default="/data" Description="Do not change." Type="Variable" Display="advanced" Required="true" Mask="false">/data</Config>
   <Config Name="Spoolroom address" Target="SPOOLROOM_URL" Default="https://spoolroom.app" Description="Leave as https://spoolroom.app." Type="Variable" Display="advanced" Required="true" Mask="false">https://spoolroom.app</Config>
-  <Config Name="Pairing code" Target="SPOOLROOM_PAIRING_CODE" Default="" Description="From Spoolroom: Settings, Connections, Connect a Watcher (eight characters, like ABCD-EFGH). Used once, on the first start; the watcher then keeps its own token in the State folder, so this can stay or be cleared." Type="Variable" Display="always" Required="false" Mask="true"/>
-  <Config Name="Watcher token" Target="SPOOLROOM_WATCHER_TOKEN" Default="" Description="Instead of a pairing code: the watcher token itself (Reveal the token in Spoolroom; starts with swt_). Treat it like a password. Leave blank when using a pairing code." Type="Variable" Display="advanced" Required="false" Mask="true"/>
+  <Config Name="Setup code" Target="SPOOLROOM_PAIRING_CODE" Default="" Description="From Spoolroom: Settings, Connections, Connect a Watcher (eight characters, like ABCD-EFGH). Used once, on the first start; the watcher then keeps its own token in the State folder, so this can stay or be cleared." Type="Variable" Display="always" Required="false" Mask="true"/>
+  <Config Name="Watcher token" Target="SPOOLROOM_WATCHER_TOKEN" Default="" Description="Instead of a setup code: the watcher token itself (Reveal the token in Spoolroom; starts with swt_). Treat it like a password. Leave blank when using a setup code." Type="Variable" Display="advanced" Required="false" Mask="true"/>
 </Container>
