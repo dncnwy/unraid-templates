@@ -9,9 +9,9 @@ Spoolroom, deducting filament from the right spools. It only makes outbound
 connections: to your printers and to spoolroom.app.
 
 1. In Spoolroom, open **Settings → Connections → Connect a Watcher**, choose
-   **Unraid**, name the watcher and generate a **pairing code** (eight
+   **Unraid**, name the watcher and generate a **setup code** (eight
    characters, good for ten minutes, used once).
-2. Install the template and paste the code into **Pairing code**. On its first
+2. Install the template and paste the code into **Setup code**. On its first
    start the container exchanges the code for its own watcher token and keeps
    that in the State folder; the code can stay in the template or be cleared.
 3. When Spoolroom shows the watcher as **Live**, add your printers under it,
